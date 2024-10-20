@@ -1,0 +1,1914 @@
+
+   2.0.0
+   -  rel: 19.10.2024, Major Update
+   -  sum: most is now open source,
+           also including tools sfktray
+           and a simple image viewer.
+           everything is now 64 bit first.
+           full rework of source code for easier reuse.
+           some added functions, and some bug fixes.
+   -  add: sfk (x)replace is now fully open source.
+           compared to replace in sfk base before
+           it is much faster, no matter if replacing
+           same or different length.
+   -  chg: sfk.exe for windows is now 64 bits.
+           if you need a 32 bit version use sfkwinxp.exe.
+   -  chg: global rework of source code, with more defines
+           to select which parts should be built.
+   -  add: sfk zip: option -nocomp to add files to a zip file
+           with no compression, as fast as possible.
+   -  add: sfk replace: options -showhits, -showmiss.
+   -  add: sfk list -sincedir: option -ignoretime to force
+           deep compare even if size and time are equal.
+   -  add: sfk sel ... +sft mputx and cputx to set exec flag
+           on all transferred files
+   -  add: sfk webserv: option -style=f to supply an own
+           css file to extend or overwrite page styles
+   -  add: sfk filetime: option -unix to print just the
+           unix time of a file in seconds
+   -  add: sfk view: option -using x to run x instead
+           of dview.exe or dview.bat
+   -  add: sfk head: head50 as alias for head -lines=50
+   -  add: sfk tail: tail50 as alias for tail -lines=50
+   -  add: sfk ... +iview, to view selected images 
+           of a folder by iview.exe
+   -  chg: sfk calc: now supports brackets by default.
+   -  fix: sfk wtou -tofile: no longer removes CR characters
+   -  fix: sfk batch tmp.sh under Windows did not produce bash script
+   -  fix: sfk version: did not show version if binary contained
+           text "$version:" multiple times. the command now
+           searches for "$version:vernum=" or "$version:name=".
+   -  add: touch: improved error message if text list is passed.
+   -  add: sfk encode -wsp, sfk help wsp to protect whitespace
+           in text for email or forum
+   -  del: sfk update, getdv
+   -  fix: xe: showed an error "zip dir entry, cannot close"
+           when listing nested archive entries
+   -  chg: sfk wget: no longer tries caching to memory.
+   -  doc: sfk help var: rework of text.
+   internal:
+   -  add: sfk sel mydir .txt +passto extprog
+   -  add: type filelist.txt | sfk list -size -ilist
+   -  add: generic -todir outdir option
+   -  add: sfk play, wav (not compiled by default)
+
+   1.9.9
+   -  rel: 15.08.2023, Major Update
+   -  sum: improved scripting and network functions.
+           detail improvements and bugfixes.
+   -  CHG: SYNTAX CHANGE: option -keepchain is now active by default.
+           this means a chain like
+              sfk sel -today mydir +run ... +tell ...
+           no longer stops at the 2nd command if no files are found.
+           command +run just skips to +tell.
+           use option -stoponempty for the old behaviour,
+           or set SFK_CONFIG=stoponempty
+           the new default allows to use
+              sfk sel -today mydir1 +sft server cput
+              +then sel -today mydir2 +sft server cput
+           without stopping inbetween because mydir1 has no recent files.
+   -  add: sfk if ... begin ... +elseif ... +else ... +endif.
+   -  add: sfk webproxy, a simple http proxy for analysis
+           of traffic, and for routing workarounds.
+   -  add: sfk web: option -headerstovar to put received
+           http headers into a variable.
+   -  add: sfk web: option -headertovar to put content
+           of a single http header into a variable.
+   -  add: sfk udpsend: return code support.
+   -  add: sfk utoa, wtoa: option -showfail to list
+           the input codes which fail to convert.
+   -  add: the sfk tcp toolkit, consisting of commands like
+           accept, connect, send, receive, to write simple
+           tcp test scripts. for info: sfk help tcp
+   -  add: sfk list: option -xsize to show mixed size
+           infos depending on file size
+   -  add: udpdump: option -time to tell receive time.
+   -  add: udpdump: support for multiple -[not]from.
+   -  add: touch: option -delay=n to wait per file.
+   -  add: sysinfo: extended by bool size info.
+   -  add: help color: SFK_COLORS shortcuts b and w.
+   -  add: sfk sleep: support for 1s[ec], 1m[inute].
+   -  add: sfk batch: improved function templates,
+           extra perline template.
+   -  add: sfk samp c tmp.c: full rework of template code
+           for an instant c or c++ program, including
+           basic tool functions.
+   -  add: sfk help env: list supported environment vars.
+   -  add: sfk encode -base64: option -linechars=n.
+   -  add: sfk unsetvar, delete an sfk variable.
+   -  add: sfk loop: optional delay time.
+   -  add: sfk fjoin: join files with any filename.
+   -  add: sfk -var: #(isempty(a)) now tells
+           if variable a is not set or empty
+   -  fix: sfk perline no longer removes %1 to %9 in text
+           when used directly. in a script, these are still
+           replaced by parameters given to sfk label,
+           which can be changed by -prefix= option. [23531]
+   -  fix: sfk treesize: -gb did not work with -quiet.
+   -  fix: filter of multiple files: unexpected context.
+   -  fix: sfk ip: memory leak when used repeatedly.
+   -  fix: sfk ftpserv: now sends a correct error reply
+           if client requests a non existing file.
+   -  chg: sfk knxdump: support ga1 value up to 31.
+   -  fix: sfk knxdump: wrong output with 14 byte text.
+   -  doc: sfk stat: fixed wrong example text.
+   -  doc: sfk olist: how to view contents of selected
+           office files in a folder directly with dview.
+   -  doc: sfk view: -office option, view office example
+   -  doc: sfk xex: info about overlapping char groups.
+   -  doc: sfk call: more details on recursion limit.
+   -  doc: sfk basic: infos on slash and quote caveats.
+   -  doc: sfk deblank: improved description.
+   -  doc: sfk label, call, wtou: improved help.
+   -  doc: sfk video: improved example.
+   -  dep: deprecated sfk media removed from help.
+           joining files should now be done by fjoin.
+   -  dep: sfk ... +tif +tcall +fcall +tend +fend
+           are deprecated as they are too complex
+           and cause errors.
+   internal:
+   -  chg: sfk batch: help now shows .sh examples on linux
+   -  fix: errors from single bit bool variables
+           on some compilers.
+   -  opt: reduced stack load per call from 145k to 90k
+           by moving functions to sfkext.cpp
+   -  add: sfk poplines, get random lines from a file
+   -  add: SFK_COLORS=black or white shortcut support
+   -  chg: sfk web, httpclient now stores all header fields
+           in provided coi, not just selected
+   -  inf: #(var) content replace must always be done
+           only before the next +cmd. [23562]
+   -  add: #(mod(a,n))
+   -  add: more reduced sfklib compile can now be done by
+           -DUSE_SFK_BASE -DSFKNOPACK -DSFKNOVFILE -DSFK_NO_NET
+   -  add: clipto64, clipfrom64
+
+   1.9.8.2
+   -  rel: 20.09.2022, Major Update
+   -  sum: added clipboard access on desktop linux
+           and mac. copy to clipboard is now faster.
+           detail improvements and bugfixes.
+   -  add: sfk fromclip/toclip on Macintosh,
+           through the pbcopy/pbpaste tool.
+   -  add: sfk fromclip/toclip on desktop linux,
+           through the xclip tool.
+   -  add: "if" now accepts text "1" or "0" to execute
+           or skip the following command or block.
+   -  add: sfk incvar, decvar to increase or decrease
+           the value of a numeric variable.
+   -  add: sfk unzip -asdir x renames the top level
+           folder from a zip file on extraction.
+   -  add: sfk ping: option -noterm to allow writing
+           of ping output to a file.
+   -  add: sfk make-random-file: option -char c to
+           create a file filled with character c
+   -  add: sfk load: option -force to continue script
+           on missing file
+   -  add: sfk calc: -hex to print hexadecimal result.
+   -  add: sfk sft ... putx: alias for put -setexec=*
+   -  add: option -maxsub=n to include up to n subdir
+           levels in commands like list.
+   -  add: sfk knxsend, knxdump: more data types.
+   -  opt: sfk toclip: massive performance improvement
+           with larger data, if -trim etc. options
+           are not used.
+   -  opt: sfk fromclip: performance improvement
+           if following command can receive binary,
+           like xed or xex.
+   -  chg: sfk toclip: now receives binary and text data,
+           to avoid unwanted conversions.
+   -  fix: hexfind: -maxdump was ignored in sfk ose.
+   -  fix: sfk batch vedit.bat: join of videos now
+           works with ffmpeg 4.4.1 or higher
+   -  fix: sfk ... +hexdump -offlen too much output.
+   -  fix: sfk data: symbols like $1foo did not reuse.
+   -  fix: make-random-file: sometimes added LfLf
+           instead of just CrLf line endings.
+   -  doc: more details on -deacc search option.
+   -  doc: alias: xclip example for windows.
+   internal:
+   -  add: sfk sft3, an alias to access an sft server
+           instantly on port 3000
+   -  add: sfk list: option -xsize to show mixed size
+           infos depending on file size
+   -  add: sfk readbytes
+
+   1.9.8
+   -  rel: 12.04.2021, Major Update
+   -  sum: instant web server for mobile image upload
+           now allows folder access.
+           added uuencode, uudecode, xxencode, xxdecode
+           to embed binary files in plain text,
+           e.g. in email or documentation.
+           web client now supports basic authentication.
+           sfk oload can now insert .xlsx sheet headers.
+   -  CHG: sfk webserv: now allows sub directory access
+           by default. use option -nosub for old behaviour.
+           folders are listed in green and can be entered.
+           adding -rw allows upload into sub directories.
+   -  add: sfk uuencode, uudecode, xxencode, xxdecode
+           to convert binary files to plain ASCII text,
+           for embedding in email or documentation.
+   -  add: sfk oload, ofilter: option -subnames to insert
+           header lines with .xlsx sheet file names.
+   -  add: sfk (x)find: option -notnames to list names
+           of files not containing a pattern.
+   -  add: sfk web, wget: options -user and -pw to set
+           http basic authentication.
+   -  add: general option -webuser, -webpw for commands
+           that can acces http:// urls like filter.
+   -  add: sfk pingdiff, find new devices in network.
+   -  fix: sfk webserv: did not support filenames
+           with accent and umlaut characters.
+   -  fix: sfk webserv: -nolist did not work.
+   -  add: sfk web, wget: option -noclose
+           to disable "Connection: close" header.
+   -  add: sfk fromclip: if clipboard is locked by another app
+           then sfk auto retries to access it up to 5 times,
+           waiting up to 500 msec. number of tries can be
+           changed by general option -cliptries=n.
+   -  chg: sfk fromclip: command chain is no longer stopped
+           if no text is available, or access failed.
+           a return code is now set for evaluation.
+   -  add: sfk variables: #(size(v)) now tells the number
+           of bytes in variable v, with text or binary data.
+   -  add: sfk tcping, check if a server accepts connections.
+   -  add: sfk snapto: -pure=2 now drops the :snapfile header.
+   -  add: sfk run: sfk variable run.lastrc now contains
+           the return code of the called program.
+   -  chg: webserv: now drops "?parms" or "#bookmark"
+           from given url to provide a file.
+   -  chg: max filename/url length increased to 1024.
+   -  add: sfk help var: variable expression 'ends' now tells
+           if a string ends with a given text.
+   -  add: run and -to output masks: now supports $relpath
+           to insert sub path relative to start folder.
+   -  add: webserv: more content types.
+   -  add: sfk batch webreq.bat to create an example script
+           with a fully defined web request.
+   -  add: sfk webserv -rw: now shows a minimal progress
+           indicator on file uploads.
+   -  add: sfk udpdump/udpsend -broad for broadcast support.
+   -  add: sfk atow, utow: option -nobom.
+   -  add: sfk ... +calc -sum, add values from chain text.
+   -  fix: better chain input detection with setvar, calc.
+   -  chg: sfk ping: no longer requires admin rights
+           on Windows 10. changed help text on that.
+   -  chg: sfk webserv: now also accepts proxy-style requests
+           starting with http://servername.
+   -  del: sfk webserv: -wide listing w/o downloadable links.
+   -  fix: sfk list mydir -tofile out.txt did not work.
+   -  fix: sfk listcodes: examples
+   -  fix: sfk snapto, md5gento: output file could not
+           be read by subsequent commands.
+   -  add: knxsend/dump support for 16 bit values and text.
+   internal:
+   -  add: SFK_COLORS shortcuts b,w
+
+   1.9.7
+   Revision 2:
+   -  rel: 17.09.2020, Major Update
+   -  sum: important bugfix when reading text from stdin.
+           improved web server. copy now copies folder times
+           by default. improved web access options.
+   -  FIX: Windows: type in.txt | sfk ... produced unexpected
+           joined input lines due to a Visual 2015 runtime bug.
+   -  fix: sync: unexpected difference listings on folder objects,
+           on sync to external disk. now size diffs are checked
+           only with files, not folders.
+   -  CHG: copy/sync: now copies folder times by default.
+           a one-time copy of many folder times may occur
+           during the next backup. this can be disabled
+           by option -nodirtime, or SET SFK_CONFIG=nodirtime
+   -  add: copy/sync: -nodirtime to not copy folder times.
+   -  add: sfk web: option -head[er] to add custom headers.
+   -  add: sfk web: option -request to fully define
+           the http request to use.
+   -  add: sfk webserv -rw: multi file upload support.
+   -  add: sfk webserv: -headers to show incoming headers.
+   -  add: windows: auto adaption to changed console width.
+   -  add: sfk run: write #(qname) to enquote variable 'name'
+           by double quotes.
+   -  chg: sfk calc: no longer expects chain input data
+           if expression without #text is given.
+   -  fix: sfk webserv: wrong content type for .JPG with
+           capital letters.
+   -  fix: copy/sync: -verbose did not work.
+   -  fix: make-random-file with -text: wrong line ends
+           and output file sizes under windows.
+   -  add: unzip: -force to continue after errors.
+   -  add: sfk video, how to edit video files.
+           sfk batch vedit.bat creates a script
+           to combine VLC and ffmpeg for video cutting.
+   -  add: sft: -spat support, for run expressions.
+   -  chg: main help: show sfk batch instead of sfk script.
+   -  doc: script: rework of example commands.
+   Initial Release:
+   -  rel: 23.05.2020, Major Update
+   -  sum: Improved file copy and backup, shown in a new script template.
+           SFK for Mac OS/X is now available as a 64-bit binary.
+           Improved FTP/SFT clients. Mobile friendly web server.
+           Improved batch support on linux. Many bug fixes and detail improvements.
+   -  CHG: SFK for Windows: now uses the Visual Studio 2015 runtime
+           also for 32-bit binaries (it always used it for the
+           64 bit binaries). This may cause a one-time recopy of files
+           with sfk copy/sync and sft cput, as the new runtime
+           interprets file dates in daylight savings time different.
+   -  CHG: SYNTAX CHANGE: sfk filter ++word1 ++word2 is deprecated.
+           Use instead sfk filter -and+word1 -and+word2,
+           or sfk filter "-+word1*word2" to search in given order.
+           The "++" will be used in a future version to control
+           command chaining data flow.
+   -  CHG: SYNTAX CHANGE: script remarks starting like //text
+           without any whitespace are now deprecated.
+           sfk script, call, perline now require that "//"
+           remarks are followed by one space,
+           to avoid ambiquities with //pathname UNC paths.
+   -  FIX: sfk sel mydir +del a.txt deleted mydir files.
+           now the parameter conflict produces an error.
+   -  CHG: FTP/SFT CLIENT SYNTAX CHANGE: filenames containing
+           whitespace like 'the dir/the file.txt' can no longer
+           be typed as is, but must be surrounded by quotes "".
+           this is because ftp/sft now allows to add another
+           parameter, which is a different target filename.
+   -  CHG: errors and warnings are now prefixed by the current
+           sfk command name, to find script errors easier.
+   -  chg: sfk batch: new example scripts. default is a small script
+           with a simple file copy example. added option -full
+           to create a large backup example script with different
+           commands on the same file set.
+   -  add: sfk ftp/sft put now supports a different remote file name.
+   -  add: sfk ftp/sft get now supports a different local file name.
+   -  add: sfk sft put: option -setexec to set executable flag
+           on files when sending to a linux server.
+   -  add: sfk webserv: mobile friendly layout
+   -  add: script: empty parameters "" are now accepted the same
+           way as option -noop (no operation), avoiding many
+           unexpected syntax errors on optional input parameters.
+   -  opt: sfk big, sfk late: massive performance improvement
+           when listing many files.
+   -  chg: unknown options now produce an immediate error with
+           most commands, instead of a delayed or no error.
+   -  chg: command chain no longer stops at +view.
+   -  add: script -anyparms, alias for script -literal.
+   -  chg: sfk clipsrc now also expands % to %%.
+   -  chg: sfk dir/stat mydir +view now shows stats in dview.
+   -  add: sfk list -withhead now passes header infos
+           like 'listing n of n files' to command chain.
+   -  add: sfk dir/big/late full colored +view support.
+   -  add: sfk syncnames, heuristic file name change sync.
+   -  add: sfk calc: experimental brackets support.
+   -  add: sfk time: option -strfpat to use strftime format.
+   -  add: sfk date: just show the current date.
+   -  add: sfk batch on linux/mac: now does chmod +x on the
+           created batch.
+   -  add: sfk alias, mkcd on linux: detailed help in case
+           of error how to use it.
+   -  add: sfk alias, mkcd on linux: if done using sudo then
+           the batch file owner is now set to the normal user.
+   -  add: sfk sft: ~ as alias for localhost
+   -  fix: sfk ftp/sft missing error text with single file.
+   -  fix: sfk ... +view color of warnings was unreadable yellow,
+           now it is magenta like the sfk white background scheme.
+   -  fix: dir, snapto: wrong typed options caused to select
+           all files of current folder.
+   -  fix: -fileset: memory leaks on multiple use
+           in subsequent commands.
+   -  fix: sfk sel -fileset fname did not work.
+   -  chg: warning "cannot read file stat" is now just "cannot read".
+   -  doc: sft -showip
+   internal:
+   -  chg: tcpcon::read now returns -1 on connection close.
+   -  add: tcpsend: support for -timeout option.
+   -  chg: tcpsend: no longer adds CRLF by default.
+           add 0x0d0a for the old behaviour.
+   -  add: sfk rerun, sfk sft rerun based on new runtime
+   -  add: -noqwild, yet incomplete and just for file selection
+   -  fix: sfk sft mput /foo, mget /foo to send/receive only
+           files starting like foo did not work. (internal)
+   -  add: sfk sfs9, sf9 aliases.
+   -  chg: chain.print for multi line text extended to 8 kb max
+   -  dep: fileset remarks starting ";" (undocumented) are deprecated
+   -  chg: internal filter +ls+ is now also deprecated
+   -  del: options -addbin -copy -zip in processDirParms
+   -  rv3: FileStat.read did not set utc,
+           causing cput time diff with vc14
+   -  rv3: added udpcast -revserv, udpget
+
+   1.9.6
+   Revision 2:
+   -  rel: 22.02.2020, Minor Update
+   -  sum: Fixed CRC checksum calculation with 64-bit sfk.
+           Better handling of multiple network interfaces with sfk ip.
+   -  FIX: sfk 64 bit: wrong crc checksum calculations.
+           sfk zip created wrong crc checksums.
+           sfk unzip showed wrong crc error messages.
+           sfk crc, crcgento, crccheck produced
+           wrong results.
+   -  CHG: OUTPUT CHANGE: sfk ip under windows:
+           now gives a list of all possible ip's
+           if more than one network interface exists.
+           the preferred ip can now be filtered by
+           environment variable SFK_OWN_NET.
+           for batch files the output of 'sfk ip'
+           can also be predefined by SFK_OWN_IP.
+   -  add: calc: now tolerates whitespace text.
+   -  add: udpdump: sfk for windows: when listening
+           for multicast traffic sfk now listens
+           on all network interfaces.
+   -  doc: xed: reasons for unexpected line breaks.
+   -  fix: compile: vc14 (vs2015) support.
+   Initial Release:
+   -  rel: 08.02.2020, Major Update
+   -  sum: important bugfixes for file selection.
+           improved help for general options.
+           improved web server and scripting.
+   -  FIX: multi directory file selection using
+            -dir ... -subdir ... -dir ... [-file]
+           selected far too few files, or stopped
+           with an error if another -file was given.
+           check your scripts for this combination.
+   -  FIX: crash on some -dir -subdir usages in two
+           subsequent chain commands.
+   -  chg: httpserv: improved page layout with
+           more compact file list output.
+           added option -wide for old format.
+   -  add: script: system variables
+           sys.ownscript.name
+           sys.ownscript.text
+           to get the filename and text data
+           of the current running script.
+   -  add: crccheck -sane to skip files which are
+           newer than the crc list.
+   -  fix: option -fileset stopped the command chain,
+           following commands like +filter were ignored.
+   -  chg: select: can now use a list of filenames
+           given by -flist.
+   -  chg: xfind: now accepts filenames produced by
+           a previous command (just as extract and
+           xhexfind already did), allowing to run
+           a nested search.
+   -  chg: ascii: alignment of first hex codes,
+           change of headline text.
+   -  chg: sfk web: download limit default size
+           increased from 30 to 100 mb.
+   -  doc: full rework of sfk help options.
+   -  doc: select, zip: -flist examples.
+   -  doc: stat: option -flist.
+   -  doc: xfind: how to run a nested search with
+           xfind -names ... +xfind.
+   -  doc: xfind: how to get result text and filename
+           within the same line.
+   -  doc: xfind: example how to search a mail inbox.
+   -  add: support for zip extension .jmod
+   internal:
+   -  fix: possible crash with -fileset
+   initial:
+   -  add: webserv: option -usehta
+   -  chg: rework of tcping, tohtml.
+   -  add: tcpsend -force empty data support
+   -  add: -every=2nd, 3rd etc.
+   -  add: syncnames
+   -  add: snapto outer time, size
+   -  fix: chain.justNamesFilter nptr check
+   -  add: mput, alias of putall
+
+   1.9.5
+   Revision 2:
+   -  rel: 28.08.2019, Major Update
+   -  sum: improved difflines and reading from std input.
+   -  add: sfk jsonform, reformat JSON data for easy
+           reading and searching
+   -  add: SFKTray V1.1 now supports display of patterns
+           up, down, left, right, all instead of just
+           a single slot. for documentation and example
+           see: sfk status
+   -  add: SFKTray Full V1.1 now supports up to 3
+           instances running in parallel,
+           with a total of up to 27 lights.
+   -  add: sfk sft(serv) option -notify=h to show an
+           up or down arrow in SFKTray on file transfer
+   -  add: tdifflines to use chain text
+           together with a file name
+   -  add: difflines option -swap to change
+           order of input data
+   -  add: windows: snapto -slow option to run with
+           a lower process priority.
+   -  add: windows: fromclip option -tofile x.
+   -  chg: hexdump: can now use -pure -recsize=n
+           to dump n input bytes per output record.
+   -  fix: crash when using -i with empty input
+   -  fix: mac compile
+   Initial Release:
+   -  rel: 04.06.2019, Major Update
+   -  sum: sfk snapto can now include text from
+           office files like .docx .xlsx .odt,
+           allowing fast loading and browsing
+           of the output file by Depeche View.
+   -  add: sfk olist, list only office files
+           within a folder.
+   -  add: snapto: option -office to include text
+           from office files like .docx .xlsx .odt
+   -  add: snapto, ofind: option -justoffice to read only
+           office files, but not plain text files.
+   -  chg: no longer loading binaries with commands
+           like snapto just due to a file mask,
+           but still by .extension. use option -wlbin
+           for the old behaviour.
+   -  add: difflines: option to read from stdin.
+   -  fix: difflines: example with variables.
+   -  fix: require: if no version info was found
+           it produced a non speaking error.
+           now it assumes version 0.0.0
+   -  fix: sfk ose: missing office file support.
+   -  doc: help office: snapto examples.
+   -  doc: sfk view: dview office notes.
+
+   1.9.4
+   Revision 3:
+   -  rel: 21.03.2019, Minor Update
+   -  sum: improved sfk name and rand. bugfix
+           for simple expressions using ortext.
+   -  fix: simple expressions: crash when using
+           many [ortext] in the same search pattern.
+   -  chg: name: no longer searches in meta data
+           by default, e.g. sfk name 1234 no longer
+           produces unexpected results because
+           their filesize is 1234.
+   -  add: name: option -withmeta and -meta
+           to also search in meta data of index.
+   -  add: name: -spat support.
+   -  add: sfk fileserv, alias of sfk sftserv.
+   -  add: sfk ... +put, alias of +sft ... cput.
+   -  add: sfk ... +putall, alias of +sft ... mput.
+   -  fix: rand: first value per process start
+           contained very few random
+   -  add: rand: now supports larger values,
+           hex output, and setting a seed
+   -  add: treesize: option -gb[yte] to list
+           all sizes in gigabytes.
+   -  add: ping: option -time to display reply
+           time when pinging a single host
+   -  doc: ping: info on graphical ping output
+   Revision 2:
+   -  rel: 16.02.2019, Major Update
+   -  sum: Improved office file text search
+           with options to produce UTF-8 output.
+   -  fix: .xlsx content loading showed wrong
+           output text in some cases.
+   -  add: ofind, oload, ofilter: option -utfout
+           to keep UTF-8 encoding on output text.
+   -  add: ofind: option -utfin to allow use of
+           UTF-8 encoded search terms with -utfout.
+   -  add: oload: option -raw to show xml content.
+   -  chg: oload, ofilter: no longer shows
+           zip file comment.
+   Initial Release:
+   -  rel: 10.02.2019, Major Update
+   -  sum: SFK can now search and load office
+           file text contents, in Open Office
+           format files like .docx .xlsx .ods .odt.
+           Search functions now search only in
+           text files by default.
+   -  CHG: Syntax Change: xfind now only searches
+           in plain text files, but not in binaries.
+           use xfindbin to search also binary files.
+   -  CHG: Syntax Change: find now only searches
+           in plain text files, but not in binaries.
+           use findbin to search also binary files.
+   -  add: ofind, search text in office files like
+           .docx .xlsx .ods .odt and plain text files.
+   -  add: ofilter, filter text of an office file.
+   -  add: oload, load text of an office file
+           for display or further processing.
+   -  add: sfk help office, for details about
+           supported office file extensions.
+   -  add: sfk alias, mkcd: support for SFK_PATH
+           environment variable, to write batch files
+           only into this folder.
+   -  chg: sfk getdv: now also suggests to save
+           to SFK_PATH if given.
+   -  add: echo: option -stream for best output
+           transfer to setvar or xed.
+   -  dep: xtext is deprecated (redundant to xfind)
+   -  dep: ftext is deprecated (redundant to find)
+   -  fix: zipto: crash on sub folder names
+           containing accent characters,
+           especially on select ... +zipto.
+   -  chg: sfk data: max content per symbol
+           is now 8 kbytes instead of 1.
+   -  fix: xed: sfk ... +xed without any patterns
+           created unwanted color output.
+   internal:
+   rev3:
+   -  add: fromtcp, replytcp
+   -  del: olist documentation
+   -  chg: unified execxfind
+
+   1.9.3
+   Revision 4:
+   -  rel: 08.12.2018, Minor Update
+   -  sum: improved scripting support.
+           the free SFKTray lite can now display
+           4 status lights.
+   -  add: SFKTray Lite now supports 4 status slots.
+   -  add: windows: fromclip +copy/move support.
+           allows to mark filenames in cmd.exe
+           then copy/move the marked names.
+   -  add: sfk sel a.txt b.txt +copy out support.
+   -  add: sfk filt in.txt -+pat +copy out support.
+   -  add: addtovar: option -noline to not append
+           extra linefeeds.
+   -  add: setvar: support slash patterns by -spat.
+   -  add: getvar: option -tofile to write
+           variable content to a file.
+   -  add: num: support of negative numbers.
+   -  add: dir -juststat to show just statistics.
+   -  add: ftpserv: -verbose now shows path info
+           on invalid path error, -verbose=2 shows
+           dump of input line.
+   -  chg: ftp client: now -quiet no longer tells
+           "no filenames from previous commands".
+   -  fix: rmtree: short confirm "rmtree." did not work.
+   -  fix: dir repeated with +loop showed wrong
+           number of total bytes.
+   -  chg: sfk dir now supports -noname.
+   -  doc: setvar: examples for string editing.
+   -  doc: xtext: find lines not matching a pattern.
+   -  doc: filter: file copy examples.
+   Revision 3:
+   -  rel: 01.11.2018, Major Update
+   -  sum: improved scripting support. bugfix for scripts
+           running in folders with spaces in their name.
+   -  FIX: sfk batch: script did not work within
+           folder names containing spaces,
+           like C:\users\Foo Bar\myscript.bat.
+           now sfk script "%~f0" with quotes is used.
+           fixed also related commands like
+           sfk samp sfk, sfk samp sfkbash.
+   -  CHG: chaining: if chaining is stopped due to missing
+           filenames it now shows a notice again by default,
+           to avoid unexpected chain stops without any infos.
+           the notice can no longer be suppressed by -quiet,
+           but as always by -nonote.
+   -  fix: option -quiet did not work globally.
+   -  chg: chaining: -verbose no longer tells how the
+           command chain is stepped. use -tracechain instead.
+   -  add: general option -keepchain to never stop the
+           command chain, even if commands that expect
+           filenames get none.
+   -  add: label: support for all general options.
+   -  add: setglobalopt to set global options.
+   -  add: chaining support with where, index, script, home.
+   -  add: encode -base64: option -nowrap to keep
+           output as one long line.
+   -  fix: getcol: unexpected set of global -upat option.
+   -  chg: sfk chars: now supports multiple code parameters.
+   -  add: ffilter: warning on wrong parameter sequence.
+   -  fix: copy -ltarg under windows showed source name.
+   -  chg: zip reading: better error message on missing file.
+   -  doc: tell: example how to print text starting with '+'.
+   -  doc: wtou: added perline example.
+   -  doc: if: info about limited nesting.
+   -  doc: end: was not searchable.
+   -  doc: status: infos about limited colors.
+   -  doc: label: more detailed info about global options.
+   -  doc: help opt: -tracechain.
+   -  doc: help chain: info on "no files, stopping x".
+   Revision 2:
+   -  rel: 03.10.2018, Major Update
+   -  sum: added easy installation under windows
+           by a double click on sfk.exe, then key 1.
+           this copies sfk.exe to a folder c:\tools
+           and creates a shell icon on the desktop.
+   -  add: sfk base: optional installation when running sfk
+           by double click from windows explorer.
+   -  CHG: Data Change: sfk index, name under windows
+           no longer use files directly within C:\
+           but only in a folder C:\zz-index, to avoid
+           user local storage in a VirtualStore folder.
+           use sfk name -useold to read old index files.
+           the new behaviour allows one C:\\ index file for
+           all users on the same windows machine.
+   -  add: predefined variable: sys.sfkver for sfk version
+   -  add: predefined variable: sys.numcols for number of
+           columns available in console
+   -  fix: getcol, tabcol: caused unexpected double execution
+           of following chain commands.
+   -  add: clipsrc: -h help option
+   -  del: clipxml: does not work, no longer documented.
+   Initial Release:
+   -  rel: 18.09.2018, Major Update
+   -  sum: added sfk addtovar to collect text lines
+           in a variable, sfk crc to create crc-32 checksums,
+           sfk difflines to list different unique lines
+           between two text files. improved ftp client
+           compatibility. many detail improvements
+           for scripting, like new variable functions.
+   -  chg: Syntax Change: command chaining no longer allows
+           data tunneling through non consuming commands.
+           in a chain like cmd1 +cmd2 +cmd3 +cmd4 +cmd5
+           it is no longer possible to send data from
+           cmd1 to cmd3/4/5 if cmd2 uses no chain data
+           (e.g. if, tell). this tunneling was inconsistent
+           and caused endless conflicts by unwanted chain data
+           in cmd3/4/5. use -keepdata or SET SFK_CONFIG=keepdata
+           for the old behaviour which was inconsistent
+           and worked only sometimes.
+   -  chg: Syntax Change: sfk if: no longer passes through
+           any chain data, as this behaviour was ambiguous
+           and caused endless unwanted chain input.
+           this means combinations like
+           +xed /a/b/ +if ... +xed /b/c/
+           are no longer possible. use '+tif' instead,
+           or global option -keepdata.
+   -  add: sfk ... +tif for conditional execution
+           requesting text and stream data explicitely.
+   -  add: sfk ... +tgoto to jump to a label passing
+           text and stream data explicitely.
+   -  chg: Syntax Change: sfk md5: now only prints the
+           checksum without filename if only a single
+           filename is given. use option -name
+           for the old behaviour.
+   -  chg: Data Change: sfk getvar -line no longer
+           appends CR or LF at extracted line.
+   -  chg: Data Change: web: no longer produces shell
+           return code 9 on error, but 1, to be
+           consistent with command chaining rc.
+   -  FIX: linux: case insensitive pattern match
+           and text extraction did not work,
+           esp. with xed or xex.
+   -  CHG: improved scripting: combinations like
+           sfk echo foo +setvar a=text
+           sfk echo foo +setvar a +if ... setvar b=text
+           sfk echo foo +xex ... +setvar b=1
+           no longer require 'then' in many cases.
+   -  add: Simple Expressions: tag [skip] at the start
+           of a pattern now skips this text completely
+           and does not count it as a hit.
+   -  chg: archive file extensions: extended the list
+           of archive files recognized by -[q]arc by
+           more office file extensions.
+           for full details type: sfk help opt
+   -  chg: no longer activating archive file read
+           implicitely with most functions.
+           use -[q]arc instead.
+   -  fix: ftpserv, httpserv: unwanted listing of
+           zip file contents instead of zip file itself.
+   -  add: sfk addtovar, append text as lines to a variable
+   -  add: variables: #(strpos(a,b)) and #(contains(a,b))
+           now searches content of variable b within
+           text of variable a.
+   -  add: variables: #(begins(a,'word')) now tells if
+           text of variable a starts with word.
+   -  chg: scripts: #(rsubstr(s,o,l)) now also supports
+           offset/length beyond string length,
+           producing an empty string instead of error.
+   -  fix: scripts: #(substr(a,n)) with n beyond
+           length of a stopped the script with
+           "invalid variable expression".
+           now it evaluates to an empty string.
+   -  add: sfk variables: function #(numlines(a))
+           to tell number of lines in variable a.
+   -  add: sfk md5var, create md5 hash
+           from sfk variable content.
+   -  add: sfk difflines, show text lines that differ
+           between two text files or variables
+   -  add: sfk crc, crcgento, crccheck to create
+           and verify crc32 checksums (the same as
+           used in zip files).
+   -  add: sfk list: now sets return code if any
+           matching files or dirs were found.
+   -  add: sfk web: now sets return code 1 on any error.
+   -  add: sfk sft: now sets return code if any
+           files were sent.
+   -  add: del[tree] now sets return code on failure
+   -  add: deltree now retries a failed folder deletion
+           2 times with a 100 msec wait inbetween.
+   -  add: del[tree] option -stoponerr to stop chain
+           execution if deletion fails
+   -  chg: del[tree] now produces a warning
+           if deletion is incomplete.
+   -  fix: ftp client: 30 second wait after listing
+           of directory or file download with some servers.
+   -  fix: run: -printcmd was ignored.
+   -  chg: zip reading: invalid zip file now produces
+           a warning instead of an error.
+   -  fix: xfind, replace functions, xrename: variables
+           were not expanded for dir parameters.
+   -  chg: sfk run: now shows a notice if no filenames
+           are processed on chaining.
+   -  chg: xed, xrename now ignore empty pattern parameters
+           instead of stopping with an error.
+           useful for scripting with optional parms.
+   -  chg: command chaining: -verbose now shows a notice
+           "chaining stops before ...: no data"
+           if execution stops due to no data.
+   -  chg: command chaining: no longer showing
+           "chaining stops ...: no filenames"
+           unless -verbose is given.
+   -  chg: sfk batch out.sh under linux:
+           added exit after sfk call.
+   -  chg: sfk sft cput: if no files are sent
+           then -quiet no longer tells anything.
+   -  add: copy -flat2 to copy all files of a dir tree
+           to an output folder with relative names.
+   -  add: make-random-file -lock option, to keep
+           a file locked for testing.
+   -  fix: xfind with -justrc: chaining to if
+           was not possible if nothing was found.
+   -  fix: xfind -showrc produced an error.
+   -  add: ifnotexist, check if a file does not exist.
+   -  add: swap, reverse chain text character order
+   -  add: Windows: sfk clock: pressing enter
+           now resets the relative time.
+   -  add: Windows: sfk clock3 shows overall start time
+           and, when pressing Enter, relative time since
+           overall start in a second column.
+   -  add: sfk clock2 to show just a relative time.
+   -  add: sft client: multi file send: now showing
+           total mb info.
+   -  add: xed: option -tolines to force line output.
+   -  fix: xed: listing of mem leaks if given filename
+           cannot be read, or input too large.
+   -  doc: end: xed -tolines reference
+   -  doc: tofile: addtovar reference
+   -  doc: sft: upload loop example.
+   -  doc: index: reworked linux examples.
+   -  doc: xfind: -showrc removed, wrong context.
+   -  doc: filter: difflines reference.
+   -  doc: help opt: new list of archive extensions
+           and -qarc info
+   -  doc: xed: reference to sfk swap
+   -  doc: sfk help chain: data tunneling notice.
+   internal:
+   Revision 4:
+   -  add: pingdiff, ping local net two times.
+   Revision 3:
+   -  add: SFK_CONFIG support for keepchain
+   -  chg: windows: 32 bit time cleanup
+   -  chg: timetToFileTime 64 bit rework
+   -  add: chaining with sysinfo
+   -  add: index: chaining of output filename
+   -  add: script: chaining of output text
+   Revision 2:
+   -  add: option -slow for lower prio
+   -  chg: cleanup of call by unified callLabel.
+   -  fix: ftp client: correction of close/readline
+           sequence in many cases
+   -  add: ftp client: -timeout option
+
+   1.9.2
+   Initial Release:
+   -  rel: 05.07.2018, Major Update
+   -  sum: added sfk move to move files,
+           getcol and tabcol to easily get a column
+           from space or tab separated text.
+           improvements of xed, getvar, scripting.
+           fixed context cleanup of perline.
+   -  chg: Syntax Change: sfk zip: no longer adds .zip
+           to output filename if it contains any dot '.'.
+           this allows to create zip files with any
+           extension, like .odt or .jar.
+           use option -zipext for the old behaviour.
+   -  add: checkzip: option -md5 to show md5 checksums
+           of zip file contents
+   -  add: general option -more to pause output
+           per page.
+   -  add: xhexfind: option -context=n to show
+           n bytes of context around results.
+   -  add: sfk for: now supports counting down,
+           negative start/end values, and optional
+           step size.
+   -  add: sfk zip: option -rel to strip top level
+           folder name of filenames within zip.
+   -  add: sfk xed: option -write to rewrite a given
+           file with changed output.
+   -  fix: sfk if: now supports expression starting
+           with plus like: if "+a = +a" ...
+   -  fix: perline: context and options were not
+           fully reset between two lines, e.g.
+           load files.txt +perline "list #qtext" -yes
+           produced wrong output.
+   -  add: sfk move: move files between two folders.
+   -  add: sfk mkdir: option -forfile to create dir tree
+           for a given filename
+   -  add: scripts: #(substr(s,o,l)) now also supports
+           variable (names) for o and l.
+   -  add: scripts: #(rsubstr(s,o,l)) to get substring
+           from the right side in left direction.
+   -  add: sfk getcol, tabcol to get one column from
+           whitespace or tab separated text.
+           alias of sfk filter.
+   -  add: sfk ping: option -every to ping every n sec.
+   -  add: make-random-file: output folder creation.
+   -  add: sfk times, alias for sfk list -times.
+   -  add: list: now also accepts -times with 's'.
+   -  add: sfk getvar: option -numline=n to get
+           a line by number.
+   -  add: zip/unzip: option -offtime to support
+           file times which are one hour off.
+   -  fix: xtext: with -to out\$file it produced error -4
+           during simulation.
+   -  fix: xtext: -to out\$file no longer writes :file
+           headers into output files.
+   -  fix: rand: missing range check.
+   -  fix: ifexist file stop -all ... was not possible.
+   -  fix: windows mingw g++ compile.
+   -  chg: sfk if: improved "need a command" error info.
+   -  doc: list: example how to keep only existing
+           filenames from a list of filenames
+   -  doc: count: example for filter/setvar/count.
+   -  doc: copy: reference to move.
+   -  doc: xtext: how to extract text starting at a line.
+   -  doc: help var: new (r)substr behaviour.
+   -  doc: addcr: example for current folder.
+   -  doc: sfk times example.
+   -  doc: sfk zip: example to unzip/zip an .odt file.
+   internal:
+   -  add: ping mynet: option -mac for linux
+
+   1.9.1
+   Revision 3:
+   -  rel: 28.05.2018, Minor Update
+   -  sum: sfk copy new option -flat to collect all into
+           one folder with flat filenames. the sfk book
+           is now available in print on Amazon.
+           search "100 command line tools", or "sfk tutorial".
+   -  add: copy: option -flat to copy all files into a
+           single output dir without sub folders.
+   -  doc: zipto: removed redundant example.
+   -  doc: name: copy -flat example.
+   -  doc: filter: -tolower/upper notice correction.
+   Revision 2:
+   -  rel: 17.04.2018, Minor Update
+   -  sum: Better support for folder zipping if no sub folder
+           contents are needed. Added script command ifexist
+           to check if a file or folder exists.
+   -  fix: sfk zip: created empty subdir entries with -nosub.
+   -  add: sfk ifexist to check if a file or folder exists.
+   -  fix: sfk getvar +tofile produced unwanted empty lines.
+   -  doc: sfk zip: option -nosub
+   -  doc: sfk list: option -nosub
+   Initial Release:
+   -  rel: 12.04.2018, Major Update
+   -  sum: The Swiss File Knife can now create zip files
+           and extract zip files, supporting UTF-8 unicode
+           filenames and 64 bit contents with sizes over 2 gb.
+           This allows highly flexible file selection with
+           the full SFK syntax, like selecting all files
+           changed today, or all files containing a searched
+           pattern, and to pack them into a .zip directly.
+   -  add: sfk zip, create zip file from folder.
+   -  add: sfk zipto, zip selected file list.
+   -  add: sfk unzip, list or extract zip file.
+   -  add: sfk checkzip, verify zip file content.
+   -  add: sfk run: quick confirm by sfk run. (with a dot)
+   -  chg: sfk getdv unter windows no longer does a direct
+           download, but shows an info text and then
+           opens a web browser to download dview.
+   -  add: scripts with -var: #(sys.slash) creates
+           \ under windows, / under linux.
+   -  add: require: option -nostop to continue chain.
+   -  fix: sfk xfind -names ... +run etc. also
+           printed the names to terminal.
+   -  fix: rand: when chained with other random generator
+           commands like make-random-file the seed was
+           permanently reinitialized, producing redundant
+           number sequences.
+   -  fix: script: command chaining stopped after md5gento,
+           make-random-file, snapto, joinlines, bin-to-src,
+           deblank, color, fixfile, split, join, partcopy,
+           setbytes, media, rename
+   -  add: ftpserv: better windows 10 ftp client support
+           by replying to OPTS UTF8 ON.
+   -  chg: sfk num: little endian conversion is now always
+           done as 32 bits, even with small numbers.
+           use option -small for old behaviour.
+   -  fix: sfk num: text output chaining did not work.
+   -  add: sfk num: option -show x to print just a single
+           format instead of all formats.
+   -  chg: hexdump: now supports -off n with chain data.
+   -  doc: xed: [2 chars] explained.
+   -  doc: xed: example to swap char groups.
+   -  doc: run: time measurement example.
+   internal:
+   revision 3:
+   -  clp: code cleanup of udpdump.
+   revision 2:
+   -  add: general option -nosub2 to exclude subfolders
+           and also hide subfolder names like in:
+           sfk list -withdirs -nosub2 mydir5
+   initial:
+   -  chg: rework of tcpsend client.
+
+   1.9.0
+   Revision 2:
+   -  rel: 12.03.2018, Minor Update
+   -  sum: SFK for Windows now supports accent insensitive search
+           and file selection according to the active codepage.
+           added direct conversion between UTF-8 and Ansi.
+   -  chg: behaviour change with wtoa, utoa:
+           if chars fail to convert these now stop
+           command chaining with return code 9.
+           use option -nostop to continue processing
+           with return code 1, without warning.
+   -  add: windows: general option -deacc to search text
+           and select files accent insensitive, meaning
+           a == A == a_accent == A_accent.
+   -  add: windows: listcodes support for -deacc.
+   -  add: windows: sfk utftoansi, ansitoutf to convert
+           8-bit text directly between your Ansi codepage
+           and UTF-8 format.
+   -  add: windows: wtoa, utoa return code support.
+   -  add: listcodes: advanced option -codepage to select
+           other codepages.
+   -  fix: sfk inst: files with UTF-8 BOM header were changed
+           incorrectly, producing a compile error near line 2.
+           now the BOM is detected and text inserted after that.
+   -  fix: sfk inst: line ending format lf vs. crlf is now kept.
+   -  chg: sfk inst: now runs in simulation mode by default.
+   -  doc: sfk filt, xex: -case with ref to help nocase.
+   -  doc: sfk help unicode ref to utoa, atou.
+   -  doc: main help ref to utoa.
+   Initial Release:
+   -  rel: 28.02.2018, Major Update
+   -  sum: SFK for Windows now supports case insensitive search
+           and file selection within the codepage of your
+           Windows system. Depending on your codepage this allows
+           to search umlauts, accents, cyrillic or greek characters
+           case insensitive. Added functions to convert text
+           from and to UCS-2 wide character data.
+   -  add: windows: case insensitive search and file selection
+           within the codepage of your windows system.
+           depending on your codepage this allows to search
+           german umlauts, french accents, cyrillic and greek
+           characters case insensitive.
+   -  add: sfk help nocase, about case insensitive search.
+   -  add: sfk listcodes, list all characters that can be searched
+           case insensitive with your Windows codepage.
+   -  add: sfk help chars, about locale specific characters.
+   -  add: general option -nocasemin to match only latin
+           chars a-z case insensitive without any accents.
+   -  add: windows: sfk wtoa and atow, convert UCS-2 wide character
+           text to 8-bit Ansi codepage text and vice versa.
+   -  add: sfk wtou and utow, convert UCS-2 wide character
+           text to 8-bit UTF-8 text and vice versa.
+   -  chg: windows: sfk chars output format changed,
+           now showing both Ansi and OEM code, and character
+           name where available, with a table header.
+           use option -min for the old minimal format.
+   -  fix: xex: option -case was ignored.
+   -  fix: xtext, xfind: error -1 on output with files
+           of 2 or 3 gbytes size.
+   -  add: xfind, xtext: now shows an improved progress indicator
+           by default. use -quiet for old behaviour.
+   -  add: sfk make-zero-file, create a file full of zero bytes
+           to clean unused space on a filesystem.
+   -  add: sfk status: new field layout=n to change SFKTray layout
+           to 2, 4 or 9 slots display. requires SFKTray 1.0.2.
+   -  add: windows: sfk prompt now converts input from dos
+           to ansi codepage by default.
+   -  add: windows: sfk script option -dos to load DOS/OEM
+           codepage encoded script files.
+   -  fix: windows: delayed terminal after filtering of text content
+           with special characters.
+   -  add: sfk strings: option -allchars to extract all printable
+           chars from binary files.
+   -  add: snapto: option -binallchars to extract all printable
+           chars from binary files.
+   -  add: sysinfo: display of SFK_CONFIG variable.
+   -  add: xtext: display of written file with -to outdir\$file.
+   -  fix: xtext: error message with -to outdir\$file
+           as long as in simulation, without text output.
+   -  chg: option -nocconv can now be used locally per command.
+   -  dep: option -iso is deprecated/ignored.
+   -  dep: option -umlauts is deprecated/ignored.
+   -  doc: main help title changed
+           from: The Swiss File Knife File Tree Processor
+           to:   The Swiss File Knife Multi Function Tool.
+   -  doc: sfk index, name now reference sfk home.
+   -  doc: sfk setvar, load, storetext, stop in main help.
+   -  doc: wtoa, wtou in main help.
+   -  doc: xrep: notice to use [eol] to replace line endings.
+   -  doc: filter: reference to help nocase, help unicode.
+   -  doc: find, replace: reference to help nocase.
+   -  doc: general option -binallchars
+   -  doc: sfk ose: xfind help did not show expression syntax.
+   -  doc: sfk ren: top reference to sfk renfile.
+   -  doc: sfk copy: single file copy example.
+   internal:
+   -  chg: wtoa, atow now also support -isochars.
+   -  chg: sfk ascii now also supports -codepage option.
+   -  add: -codepage=a-o to set fixed ansi/oem codepage.
+   -  add: -deacc for accent insensitive match.
+   -  add: option -isoc as alias for -isochars.
+   -  fix: xtext, xfind: iContextUsed 2 gb overflow caused error -1.
+   -  chg: option -noacc undocumented, conflicts with -deacc.
+
+   1.8.9
+   Revision 2:
+   -  rel: 10.01.2018, Minor Update
+   -  sum: improved scripting error messages.
+           better rename support in scripts.
+           added filter option to skip first lines.
+   -  add: sfk renfile, rename just a single file,
+           for use in sfk scripts.
+   -  add: filter -skipfirst=n to skip first n lines.
+   -  chg: -nocol given locally at a command no longer
+           changes the global color mode.
+   -  chg: scripts: every command given like +cmdname
+           can now be used in a script, no longer producing
+           the error "does not support input chaining".
+   -  add: sfk ren, xren: option -quiet to print nothing.
+   -  add: sfk ren, xren: now tells number of changed files.
+           option -[no]stat to show or hide statistics.
+   -  add: sfk rmtree: option -quiet to print nothing,
+           option -stat to show statistics with -quiet.
+   -  fix: scripts: unknown commands were ignored silently,
+           they now produce an error "unknown command".
+   -  fix: -memlimit=3000 did not work.
+   -  fix: sfk prompt help text.
+   -  doc: improved prompt example.
+   Initial Release:
+   -  rel: 06.12.2017, Major Update
+   -  sum: improved scripting with if begin endif blocks.
+           better display of windows filenames on more codepages.
+           added sfk rand to create random numbers,
+           sfk prompt to allow user input.
+           fixed xex return code handling
+           and stop of script after sfk status.
+   -  chg: windows: improved display of european filenames
+           using non latin characters in the own codepage.
+   -  chg: sfk batch tmp.bat: the example is now
+           a short number game with status lights.
+   -  add: scripting: +if expr +begin ... +endif
+           to execute multiple commands as one block
+           if given expression is true.
+   -  add: scripting: easy check if a variable text contains
+           a phrase by: if "#(contains(mystr,'text'))"
+   -  add: if: support for if "rc<>1" to check if command rc
+           is different to a value.
+   -  add: sfk rand to create a random number.
+   -  add: sfk prompt to ask for user input.
+   -  chg: sfk status: no longer requires protocol version.
+   -  fix: xex: return code was always 1 if previous
+           command set it, no matter if xex found data.
+   -  fix: fixfile: option -dewide displayed invalid date 1900...
+           in simulation preview.
+   -  fix: possible crash on setvar with empty value.
+   -  fix: status: silent stop of command chain with
+           some following commands like +list
+   -  chg: windows OSE compile support for MSVC 14.
+   -  chg: chaining from +tell to other commands like +setvar
+           no longer requires +then.
+   -  chg: improved tracing of variable expansion
+           by -debug like +tell -debug "#(strlen(a))"
+   -  doc: xex: how to check if a variable contains a word.
+   -  doc: help var: how to search a variable in a variable.
+   Revision 3:
+   -  add: status: info that SFKTray 1.0.2 now supports
+           layout=n to change number of slots shown.
+   -  add: fromucs: option -ansi under Windows
+   Revision 2:
+   -  add: fromucs, toucs
+   -  fix: fixfile: possible crash with some runtimes
+           due to negative time given to strftime
+
+   1.8.8
+   Revision 2:
+   -  rel: 21.09.2017, Minor Update
+   -  sum: improved scripting with perline and getvar commands.
+   -  add: perline: option -setvar x to put whole line text
+           into variable x, for easy call of sub functions
+           without parameters.
+   -  add: getvar: option -line to extract first line
+           matching a pattern. allows fast table lookups
+           by a unique id if text is in a variable.
+   -  add: hexdump: option -nolf for -pure format.
+   -  doc: touch: how to touch a single dir.
+   -  doc: filetime: how to list a single dir.
+   -  doc: filter: link to getvar.
+   Initial Release:
+   -  rel: 04.09.2017, Major Update
+   -  sum: added new GUI tool to display status infos
+           by several lights in the system tray.
+           added sfk status command to control these lights.
+           added more flexible rename for files and folders.
+   -  add: sfk xrename, a flexible rename for files and
+           folder names, supporting full SFK Simple Expressions
+           and many patterns per command.
+   -  add: sfk status, send a colored status to the SFKTray
+           Windows GUI tool for display.
+   -  fix: fromnet: when used with command chaining
+           it called following commands endless even with
+           no input at all. now e.g. fromnet +filter ...
+           will block until actual input data is received.
+           use new option -nowait for old behaviour.
+   -  fix: sfk web: input conflict error after some
+           commands like setvar.
+   -  chg: web download limit default is now 30 mb.
+   -  add: sfk if: warning on "rc = 0" comparison which
+           should be "rc=0".
+   -  chg: syntax change: stat: further command name chars
+           like "sfk statistics" are no longer supported.
+   -  doc: sfk rename: -spat example and xrename reference.
+
+   1.8.7
+   Revision 2:
+   -  rel: 15.07.2017, Minor Update
+   -  sum: further improvements of http and udp message sending
+           for easier scripting and convenience.
+   -  chg: web: option -cweb renamed to -chainweb to avoid
+           ambiguities with new commands. old -cweb is kept
+           for compatibility, but no longer documented.
+   -  fix: sfk update: always told there was a newer version
+           if new version info contained a trailing dot.
+   -  add: cweb, an alias for web -nodump -quiet to call
+           web url's quick without any output.
+   -  add: udp, an alias for udpsend, but does not use
+           any chain input data.
+   -  add: cudp, call udp quickly without any output.
+           same as udp -quiet.
+   -  chg: wget: improved error message when trying https.
+   -  chg: ftp server: SIZE command on non existing file
+           now returns code 550 instead of 213.
+   Initial Release:
+   -  rel: 06.07.2017, Major Update
+   -  sum: syntax corrections with sfk web, addhead and addtail.
+           easier web automation in sfk scripts.
+   -  CHG: SYNTAX CHANGE: command +web no longer uses chain input
+           text by default, so commands like
+              sfk filter ... +web ...
+           will no longer work. use instead +tweb like
+              sfk filter ... +tweb ...
+           to explicitely read chain text, or set global option
+           -chainweb for the old behaviour. if you need your
+           old scripts to run without any changes, set environment
+           variable:
+              SET SFK_CONFIG=chainweb
+           reason: in sfk scripts +web is used most of the time
+           with an URL given as a parameter, but not read from
+           chain text input, so permanent writing of +then web
+           was required. the new default makes web automation
+           scripts much easier.
+   -  CHG: OUTPUT CHANGE: sfk addhead, addtail no longer
+           add blanks between added words by default.
+           use option -blank for the old behaviour.
+   -  add: sfk addhead, addtail: command chaining support.
+   -  add: sfk load: load text or data for further processing
+           in a command chain. just like xex or filter,
+           but more intuitive in scripts if you do not
+           want to apply any filtering.
+   -  add: web: -delay option to wait per request
+   -  add: tweb, an alias of web that reads url's
+           from chain text of previous command.
+   -  add: global options -chainweb and -nochainweb to change
+           +web chain input default.
+   -  add: sort: -skiphead to keep table headers
+   -  add: echo: option -joinline to reformat quoted multi line
+           parameters with full trim. includes option -noblank
+           which is now deprecated but kept for compatibility.
+   -  add: sfk data: now supports multi line template in scripts.
+   -  add: sfk data: support for $minute, $second
+   -  add: doc: sfk help chain, script: reference to load.
+   internal:
+   -  fix: update: wrong curl syntax in case of download failure
+   -  add: web -enc[ode] to encode blanks in urls
+   -  add: mweb to run many commands quietly.
+   -  add: copy: experimental move option.
+   -  add: sort: option -tabcol 3,2,1
+   -  add: setGeneralOption sim support
+
+   1.8.6
+   Revision 3:
+   -  rel: 09.06.2017, Minor Update
+   -  sum: detail improvements of calc and partcopy.
+   -  add: sfk partcopy: option -fromtoinc to include
+           the end offset in output.
+   -  fix: sfk calc: expressions starting with a negative
+           number were not supported.
+   Revision 2:
+   -  rel: 03.06.2017, Minor Update
+   -  sum: fixed output formatting of multiple variables
+           in the same command.
+   -  FIX: Output Change: when formatting multiple variables
+           in the same command like "#(3.3a) #(b) #(c)"
+           then the formatting of the first variable was
+           applied to all following. now only the given
+           formatting per variable is applied.
+   Initial Release:
+   -  rel: 30.05.2017, Major Update
+   -  sum: added easy variable output formatting
+           like #(05i) which pads i to 5 characters
+           with leading zeros. calculator now supports
+           long expressions with many values.
+   -  add: variable formatting on output in C-style
+           notation like #(3.5varname) allowing to fill
+           text with leading blanks or zeros, and to limit
+           text to a given number of characters.
+           for details see "sfk help var"
+   -  add: sfk run, perline: now support ufile, upath
+           or qufile, qupath to use unix slashes "/".
+           useful to create html output.
+   -  add: sfk calc: now supports long expressions
+           with more than two values.
+   -  chg: sfk calc: if chain input is used as #text
+           it now fills in the whole text, no longer
+           ignoring characters after first whitespace.
+   -  fix: sfk touch: did not support chaining
+           to following commands.
+   -  fix: sfk httpserv: truncated bad formatted url's
+           like "foo bar.txt" with unencoded blank
+           as "foo". now these produce code 404 only.
+   -  doc: sfk for: example how to copy files.
+   -  doc: sfk perline: example how to create an
+           html file listing images.
+   -  chg: variable functions lpad, rpad are no longer
+           documented but still supported. padding by
+           the new C-style notation is easier.
+   internal:
+   Initial Release:
+   -  web: url encoding of blanks
+
+   1.8.5
+   Revision 3:
+   -  rel: 18.05.2017, Minor Update
+   -  sum: sfk version output fixed, which was wrong
+           especially under linux. ftpserv now shows
+           the time of a client connect and disconnect.
+   -  fix: sfk version: did not work esp. on linux.
+   -  add: ftpserv: console connect time infos.
+   Revision 2:
+   -  rel: 06.05.2017, Minor Update
+   -  sum: reduced ftp terminal output on error replies.
+   -  chg: ftp server: no longer printing 5xx replies
+           to terminal by default. added option -showerror
+           to print them, except for 550 no such file.
+   -  chg: ftp: protocol info is now shown only with
+           ftp(server) but not with sft commands.
+   -  doc: xed: example how to replace a line by file content.
+   Initial Release:
+   -  rel: 26.04.2017, Major Update
+   -  sum: fix of FTP server which blocked folder transfers
+           with many ftp clients. rework of FTP server
+           and client for improved connectivity under Windows.
+           improved scripting by for loop.
+           added listle to list line end infos for text files.
+           detail improvements of udpdump, list, setbytes.
+   -  CHG: FTP Client Change under Windows: when using "sfk ftp"
+           with an sfk ftp server, via port 21, the client now
+           uses plain FTP protocol by default to avoid firewall
+           restrictions. use option -sft or SFK_CONFIG=usesft
+           for the old behaviour if no firewall interferes.
+   -  FIX: ftp server: transfer of folders with most ftp
+           clients was blocked as CWD /mydir/ was not possible,
+           since sfk 1.8.4. (side effect from dir traversal fix)
+   -  fix: ftp server: unexpected close connection errors
+           at client on QUIT command. QUIT now produces
+           a reply 221 before closing the connection.
+   -  fix: ftp client: missing display of error reply from
+           server on ftp put, mput, sel ... +ftp mput.
+   -  add: ftp client: options -raw to force plain ftp
+           and -sft to allow sft even via port 21.
+   -  chg: ftp server: 5xx error replies are now always shown
+           on console unless -quiet is given.
+   -  chg: ftp: now tells protocol used (ftp/sft)
+           on every file transfer.
+   -  add: ftp server: display of verify in verbose mode.
+   -  add: sfk for, like for var from s to e +... +endfor.
+   -  add: sfk listle, list line end infos for text files.
+   -  fix: sfk for windows: absolute paths with forward slash
+           like /tmp were not detected with some commands like
+           sfk sel /mydir +copy -ltarg /outdir
+   -  add: sfk setbytes: option -repeat=n to repeat data
+           n times.
+   -  add: sfk list: option -abs to list full absolute paths.
+   -  add: sfk udpdump: now accepts both "," or blank separator
+           for multi ip mask.
+   -  add: sfk udpdump: warning on wrong chars in ip mask.
+   -  chg: sfk view: changed some colors to look more like
+           the white color theme.
+   -  fix: sfk ask -abs used only -ab
+   -  doc: sfk replace: help now always lists the possible
+           shell return codes.
+   -  doc: sfk script: improved infos on parameter name collision.
+   -  doc: sfk filter: -format examples improved.
+   -  doc: sfk udpdump: examples for multi ip filtering.
+   -  doc: sfk xfind: windows return code handling example.
+   -  doc: sfk addcr/remcr: reference to listle.
+   -  doc: sfk ftpserv and ftp: help text rework.
+   internal:
+   -  opt: +setvar reuse of memory on same length.
+   -  fix: isAbsolutePath now also detects /tmp etc.
+
+   1.8.4
+   Revision 2:
+   -  rel: 09.03.2017, Minor Update
+   -  sum: version command can now list standard windows
+           version infos contained in .exe files.
+   -  chg: hextobin: no longer tells conversion statistics
+           when output is sent to another command
+   -  add: sfk version: support for windows binary version infos.
+   -  doc: encode/decode was not contained in dumphelp.
+   -  doc: main
+   Initial Release:
+   -  rel: 28.02.2017, Major Update
+   -  sum: security fix for windows ftp and http server.
+           added encoding and decoding of base64, hex
+           and url text formats. added setbytes command to set
+           bytes directly in a file. improved scripting.
+   -  FIX: ftpserv and httpserv under Windows: with option -rw
+           write to a forbidden absolute path like C:\thedir\...
+           was not blocked.
+   -  CHG: Syntax Change: sfk ... +hexdump no longer expects
+           filename lists from previous commands, but only text
+           and binary data. use +hexfile or +fhexdump for the
+           old behaviour. this fixes issues that data sent
+           by the command chain was always misinterpreted
+           as filename lists, producing file open errors.
+   -  add: sfk clock, permanent display of absolute and
+           relative time.
+   -  add: sfk hexdump: automatic highlight of line end chars
+           with pure text input data.
+   -  fix: sfk for windows: repeated calls of sfk sft ...
+           in scripts not possible.
+   -  add: sfk old, alias for sfk list -old to show oldest
+           files of a folder.
+   -  add: sfk small, alias for sfk list -small to show smallest
+           files of a folder.
+   -  add: sfk chars now supports command chain input.
+   -  add: ftp client in sft mode: display of 55x error replies
+           on file send, also without -verbose.
+   -  add: sfk encode and decode, convert data to and from
+           base64, hex or prefixed hex data.
+   -  add: sfk setbytes, write a byte sequence into a file
+           at a given offset.
+   -  del: the undocumented +text and +files keywords
+           in command chaining are no longer supported.
+   -  chg: sfk base: sfk sel ... +extract was not enabled.
+   -  chg: sfk base+xd: sfk sel ... +xrep demo was not enabled.
+   -  chg: echo -literal -noline ... followed by a command
+           accepting binary data, like xed, no longer appends (CR)LF.
+   -  add: echo -pure as an alias for -literal -noline,
+           to prepare chain input data as unchanged as possible.
+   -  doc: hexfind.
+   internal:
+   Revision 2:
+   -  add: fromclipw, toclipw.
+   -  chg: ver unified output using only chain.print.
+   Initial Release:
+   -  chg: unified path traversal check method.
+   -  fix: wsacleanup now called central once on process exit.
+
+   1.8.3
+   Revision 3:
+   -  rel: 07.02.2017, Minor Update
+   -  sum: improved scripting, better error messages,
+           small bug fixes.
+   -  add: linux: main help info for more output columns.
+   -  add: diverse cannot open file error messages:
+           detail infos if filename contains cr/lf characters.
+   -  chg: sfk fromnet: renamed -nocache to -raw,
+           with -nocache still being supported.
+   -  add: udpsend is now chainable and may send chain input.
+   -  add: udpdump option -text for easy plain text display.
+   -  chg: Syntax Change: "sfk ... +list" no longer lists
+           the whole content of the current folder if previous
+           command did not send a list of filenames.
+           use "sfk ... +list ." instead.
+   -  chg: Syntax Change: sfk spell: no longer prints spelling
+           table by default, but shows help text.
+           use option -table for old behaviour.
+   -  add: sfk spell: support for chain text input,
+           spelled output is now prefixed by input words.
+   -  fix: sfk ... +toclip now tells an error instead of
+           blocking without notice if previous command
+           provides no input data.
+   -  fix: sfk colortest under windows did not restore
+           default color after test.
+   -  fix: xe: knxdump didn't work.
+   -  add: sfk ruler, to measure console text width.
+   -  ren: sfk diskspace primary name is now sfk space.
+           sfk fsinfo    primary name is now sfk filesys.
+           old names are supported for compatibility.
+   -  chg: scripting: these commands can now be called
+           without previous +then although they never use
+           chain input data: fromnet, color, make-random-file,
+           time, data, home, space, filesys, ruler.
+   -  doc: sfk getvar
+   Revision 2:
+   -  rel: 31.01.2017, Minor Update
+   -  sum: fix of unexpected stop of sfk scripts after commands
+           like xex or filter.
+   -  fix: unexpected stop of scripts after some commands
+           like web ... +xex ...
+   Initial Release:
+   -  rel: 21.01.2017, Major Update
+   -  sum: detail improvements for index file handling,
+           udp message sending, text filter, windows/linux
+           unified scripts. easier scripting by sfk tell which
+           never sends given text to following commands.
+           scripts can now call more nested sub functions.
+           bug fixes for run, tail, hexdump.
+   -  chg: option -upat now also support "/" for start of name
+           comparison as in -subdir :/tmp or -file :/tmp
+   -  chg: "sfk lindex" renamed to "sfk index" for easier use.
+           sfk lindex is still supported for compatibility.
+   -  add: "sfk iname" renamed to "sfk name" for easier use.
+           sfk iname is still supported for compatibility.
+   -  add: sfk udpsend: if a short ip is expanded the full
+           target ip is now shown. option -showip to force
+           showing of ip instead of host in sent info.
+   -  add: sfk ip: optional expansion of given short ip.
+           chaining support to pass ip text to other commands.
+   -  add: sfk filter -toupper, -tolower to convert a-z
+           to upper- or lowercase. does not convert any
+           special characters like accents or umlauts.
+   -  add: file selection option -tomake outdir\$base.ext
+           to select all files having no or an older counterpart
+           file in output folder outdir. see "sfk run" for
+           an example of .wav to .mp3 conversion with ffmpeg.
+   -  fix: sfk udpsend, tonetlog could net send to different
+           targets in the same command chain or script.
+   -  add: sfk tell, same as echo but only prints to terminal
+           and never sends given text to following commands,
+           allowing scripts with fewer "+then" statements.
+   -  add: sfk data, create random test data records.
+   -  chg: reduced stack load per call and perline
+           allowing more nested calls.
+   -  fix: sfk dumphelp: now prints main help text first.
+   -  fix: sfk run with a single string containing # or $
+           did nothing.
+   -  fix: sfk tail under windows: handling of files > 2 GB
+           without option -altsize.
+   -  fix: sfk ... +hexdump unexpected dump of all files
+           of current folder.
+   -  chg: sfk knxdump, knxsend: GA support up to 31/7/255,
+           support to send to unicast address.
+   -  doc: updated list, run, help opt, echo/tell, xed,
+           filter, media, call, perline, dupfind
+   internal:
+   Revision 3:
+   -  add: setbytes.
+   -  fix: loadInput did not support non-color mode.
+   Revision 2:
+   -  add: ftpserv -usedir optional local limits.
+   Initial Release:
+   -  add: sfk web access: redirection notes now also show
+           from which url the redirect starts.
+   -  del: undocumented mindump, hexle.
+   -  chg: code move from submain to extmain,
+           reduced stack load per call from 140k to 50k.
+   -  add: sfk stacksize.
+   -  del: SFK_STRICT_MATCH name comparison.
+   -  chg: chain.print redirect on colany().
+   -  add: sfk encode/decode -url -hex -_hex ...
+   -  add: sfk filter -fromurl -fromhex -from_hex -frombase64
+   -  add: sfk filter -tourl -tohex -to_hex -tobase64
+
+   1.8.2
+   Initial Release:
+   -  rel: 15.11.2016, Major Update
+   -  sum: sfk xfind, a powerful text search tool for the command line,
+           is now open source. compared to grep it features an easy,
+           human readable pattern syntax based on the english language.
+           improved scripting by string functions like substr
+           and direct access to environment variables.
+   -  chg: sfk OSE: xfind, xhexfind, xtext and extract
+           are now open source.
+   -  add: sfk variable functions like #(substr(a,3,2)).
+           type "sfk help var" for details.
+   -  add: access to environment variables like #(env.varname).
+           type "sfk help var" for details.
+   -  chg: error text "incomplete replacement pattern"
+           changed to "imcomplete search pattern"
+           with improved correction hints.
+   -  fix: ftpserver with -usedir: empty listing in ftp clients
+           like cyberduck due to invalid rwx attribute infos.
+   -  fix: sfk ose compile: sfkbase.hpp did not define SFKOSE.
+   -  doc: xfind, xtext help reworked. improved "see also" list,
+           -enddir before -text is not needed,
+           -text is listed before -pat.
+   -  doc: marked find, hexfind as basic commands
+           with reference to xfind, xhexfind.
+   internal:
+   -  add: list option -tomake enabling run (q)targ.
+
+   1.8.1
+   Revision 4:
+   -  rel: 19.10.2016, Minor Update
+   -  sum: improved scripting with sfk if.
+           improved sfk count.
+   -  chg: sfk batch, sfk samp sfkbat with windows:
+           now using %~f0 instead of %0 to insert the
+           full absolute batch name including extensions.
+           this allows to type "mycmd" instead of
+           "mycmd.bat" to run a script.
+   -  add: sfk count: direct file reading support.
+   -  fix: sfk if: now also accepts expressions starting
+           like an option, like "-yes = -yes".
+   -  add: sfk tail: option -nowait to avoid blocking
+           in a command chain using +loop.
+   -  fix: progress info output after wget even with -quiet=2.
+   -  fix: sfk web: error message "wrong date/time" because
+           web server uses a different locale than client.
+           now there is only a notice if -verbose is used.
+   -  doc: sfk goto: infos about broken chain data flow.
+   -  doc: sfk batch: improved template batch with
+           help text display on empty parameters.
+   -  doc: wget info on -quiet=2.
+   Revision 3:
+   -  fix: sfk call, perline: error "missing or wrong script
+           parameter" with empty parameters.
+   -  fix: sfk run and other: empty parameter before dir
+           parameter list produced errors.
+   -  doc: info about no variable support with -bylist.
+   Revision 2:
+   -  ADD: sfk if with generic comparison of parameters,
+           variables, strings and numbers.
+   -  CHG: sfk script: empty parameters and variables
+           which are not surrounded by quotes are now removed.
+   -  add: sfk (x)hexfind, (x)replace, extract:
+           option -fullheader to show offset/length infos
+           of found hits both with decimal and hexadecimal.
+   -  add: sfk goto, jump to a local label.
+   -  add: sfk label: option -var to enable variable use
+           for all following commands.
+   -  fix: xhexfind: results >= 4048 bytes were not printed.
+   -  add: xhexfind: option -maxdump=n to show only n bytes.
+   -  fix: call mylabel called mylabel2 if present.
+   -  fix: sfk update: did not detect new version
+           if 1.8.1 is compared with 1.8.1.2
+   -  fix: command chaining: when using short file selection
+           in a command then using long file selection in
+           following commands produced an error sometimes.
+   -  doc: sfk web: script example for access with
+           connection error handling.
+   -  doc: sfk label: info about global options.
+   -  doc: sfk script: info about -var after label.
+   Initial Release:
+   -  rel: 29.09.2016, Major Update
+   -  sum: added support for sfk variables, allowing to store data
+           from a command and to reuse it in other commands.
+           massive improved scripting.
+   -  ADD: sfk variables. type "sfk help var" for infos.
+           allows to store data produced by one command,
+           and to reuse it in another command like #(name)
+   -  ADD: sfk perline, run sfk commands per text input line.
+           similar to sfk run, but without starting an
+           external program, and with full access
+           to sfk variables produced by previous commands.
+   -  CHG: Syntax Change: sfk call, if: no longer clears
+           chain text after command. call will now flush
+           chain text before entering the label.
+   -  CHG: Syntax Change: sfk echo ... +call +xex
+           no longer passes text of echo as chain data
+           through to xex. use tcall for that.
+   -  CHG: Syntax Change: sfk gettext output changed with
+           text produced by storetext -append. more below.
+   -  add: sfk samp http, create an example script
+           for web access automation.
+   -  add: sfk xed, xex, xreplace, simple expressions:
+           [setvar name]...[endvar] to set an sfk variable,
+           [getvar name] to fill in data from an sfk variable.
+   -  add: sfk xed, simple expressions: keyword [ortext]
+           to search literals OR combined. can only be used
+           between literals.
+   -  add: sfk xed, simple expressions: keyword [keep]
+           to search text that should be kept in input,
+           without consume or replace.
+   -  add: sfk echo -lines to print every string as one line.
+   -  add: sfk xed: option -firsthit to use only first matching result.
+   -  add: sfk filter: option -line=n to read nth line from input.
+   -  add: sfk web: option -showreq, similar to -status.
+   -  add: sfk find: option -head=n to read only n lines.
+   -  add: sfk batch, alias of sfk samp sfkbat.
+           may also create .sh files under windows.
+   -  add: sfk xf, alias for xmlform.
+   -  fix: command chaining: unexpected drop of data when
+           chaining to echo, fromclip, var, gettext, getvar.
+           e.g. sfk echo foo +echo bar +tofile out.txt
+           dropped "foo", now it is printed.
+   -  add: command chaining: +tcall to consume text data
+           and +tend to return text data.
+   -  fix: sfk script -from begin: if script contained
+           a label begin2 this was called.
+   -  chg: sfk xex, xed: improved help examples, separate
+           examples for xex and xed.
+   -  chg: sfk samp sfkbat, sfkbash now use %0 or $0
+           instead of the script filename.
+   -  chg: Simple Expressions: now support zero length tokens
+           like in "/[start][0 chars][1 char]/"
+   -  chg: sfk samp: path now allowed in output file
+           with some language types.
+   -  add: sfk xex, xed: option -justrc to just set return code
+           without printing any output.
+   -  add: sfk ... +tovoid to drop current chain text.
+   -  add: sfk stop: optional text to print, info on rc 9
+           to stop a script from within call.
+           dump of chain text on rc >= 9.
+   -  add: sfk call: improved help text.
+   -  FIX: sfk script, call: missing parameters produced errors
+           or even crashed. now these are just empty.
+   -  fix: sfk ... +run was blocked with http:// url's.
+   -  fix: sfk web -status=... +xex didn't work.
+   -  fix: sfk echo: quoted multi line parms output
+           contained unwanted CR characters and trailing
+           blank line.
+   -  fix: sfk web: always produced rc 9.
+   -  fix: run -stoprc: did not work in a script.
+   -  fix: script: +if ... stop -all didn't work,
+           as "if" misinterpreted options.
+   -  fix: script: +stop no longer requires +then stop.
+   -  fix: gettext: missing linefeeds on terminal output
+           after multiple storetext -append. workarounds
+           appending with "\n" must be changed.
+   -  fix: sfk version -own +filter didn't work.
+   -  fix: expression part info didn't show # chars.
+   -  chg: sfk samp sfkbat, sfkbash new templates.
+   -  add: sfk knxsend: support for alternative IP group,
+           send of search request.
+   -  add: sfk knxdump: option -verbose to print search
+           response verbosely.
+   -  doc: extended echo help.
+   -  doc: reworked help for sfk script.
+   -  doc: help text for sfk then.
+   internal:
+   rev. 3:
+   -  add: env variable read support.
+   -  add: sfk calc: hex support.
+   initial:
+   -  chg: sfk run: option -strict
+   -  add: sfk ruler
+   -  del: sfk help firefox, samp firefox
+   -  add: cmd1 +to cmd2 draft
+   -  add: sfk rerun(loop) with output redirect.
+   -  add: sfk echo -indent=n to keep indentation in scripts.
+   -  fix: sfk echo ... +run ... chaining small improvement.
+   -  add: sft(serv) aliases sfs3, sf3.
+   -  fix: xex [setvar] no terminal output.
+   -  add: sfk variable use with most commands
+   -  chg: rework of perline, endper dropped
+
+   1.8.0
+   Initial Release:
+   -  rel: 30.08.2016, Major Update
+   -  sum: sfk xed, a powerful stream text editor, is now free
+           and Open Source. it allows text and binary editing
+           with a simple, human readable syntax.
+           improved handling of multi line parameters in sfk scripts.
+   -  CHG: SYNTAX CHANGE: sfk script and sfk label:
+           quoted multi line parameters are now trimmed by default,
+           no longer requiring option -qtrim. see "sfk script"
+           for details. scripts requiring the old behaviour
+           may now need option -qraw after "sfk label".
+   -  chg: the SFK Mobile Booklet was fully reworked
+           and now covers the latest SFK version,
+           including an 38 page tutorial.
+           see stahlworks.com/pdf for details.
+   -  chg: sfk script: support for quoted multi line parms with
+           filter -rep, filter -form, web, wget, rename
+   -  add: sfk windows: clipsrc, clipphp, clipjava
+           to convert clipboard text to source code.
+           type "sfk bin-to-src" for documentation.
+   -  fix: linux: autoconf compile didn't work.
+   -  fix: compile: -DSFKOSE no longer necessary
+           to produce a Base/OSE binary info.
+   -  fix: web -nodump missing option documentation.
+   -  fix: xmlform: unwanted blank lines in output,
+           lost lines on some multi line tags.
+   internal:
+   -  chg: see sfk180 for dv build adaptions
+   -  add: sfk tohtml
+
+   1.7.7
+   Initial Release:
+   -  rel: 29.07.2016, Major Update
+   -  sum: easy web data access with functions
+           sfk web, wfilter, xex. added sfk calc to do
+           simple calculations. improvements of wget,
+           ftpclient, udpdump, find, xfind, script.
+           diverse bug fixes.
+   -  inf: Compatibility Notice: sfk scripts with
+           quoted multi line parameters will change
+           their default behaviour in the future.
+           see "sfk label" options -qtrim and -qraw.
+   -  dep: Deprecation Warning: sfk webreq should
+           no longer be used. use sfk web instead.
+   -  chg: Compatibility Notice: sfk pause: no longer
+           sets a non zero shell return code if Esc
+           key is pressed (which was undocumented).
+   -  add: sfk update: check for SFK updates.
+   -  add: sfk pause: option -keyrc to set the
+           shell return code by ascii code of the
+           pressed key.
+   -  add: sfk filter: option -head=n to read only
+           first n lines of text files.
+   -  add: sfk filter: option -tail=n to read only
+           last n lines of text files.
+   -  add: web access support with sfk filter, xex.
+           help text examples for web access.
+   -  add: xe: sfk xreplace: option -astext to print
+           search/replace hits as plain text.
+   -  add: sfk web, send a simple web request.
+           new implementation replacing webreq.
+   -  add: sfk label: option -qtrim to strip whitespace
+           from quoted multiline parameters.
+   -  add: sfk ftpserv: support for environment variables
+           SFK_FTP_SUSER, SFK_FTP_SPW, SFK_FTP_SRUNPW
+           which are used only by sfk ftpserv, not sfk ftp.
+   -  add: sfk ftp: support for environment variables
+           SFK_FTP_CUSER, SFK_FTP_CPW which are used
+           only by sfk ftp, not sfk ftpserv.
+   -  add: main help now lists the most important
+           active environment variables.
+   -  add: full documentation of option -upat for using
+           unix patterns : and # under windows.
+   -  add: option -upat2 to use sfk linux wildcard %
+           instead of * under windows
+   -  add: sfk windows: set SFK_CONFIG=upat or upat2
+           support to use unix syntax in bash files
+   -  add: sfk for windows now also supports environment
+           variable option SFK_CONFIG=wildstar:c
+           to support a different wildcard character.
+   -  add: sfk calc, do a simple calculation of two values.
+   -  add: xfind, xhexfind: option -names to show just
+           the names of files containing hits.
+   -  fix: udpsend: no error on missing port or data.
+   -  fix: find: option -justrc produced blank lines.
+   -  add: udpdump: option -from now supports multiple
+           ip patterns separated by comma.
+   -  add: udpdump: option -notfrom.
+   -  add: wget: auto expansion of url to http://url
+   -  chg: ftp client: "server speaks sft" message
+           is now shown only with -verbose.
+   -  chg: ftp client: "using SFK_FTP_PW" message
+           is now shown only with -verbose.
+   -  add: wget: option -maxwait to stop on timeout.
+   -  opt: wget: no longer sends head request.
+   -  add: httpserv: -raw option to send content
+           without any reply headers.
+   -  fix: wget: download from a primitive server
+           that sends no http headers produced
+           incomplete first text line.
+   -  fix: sfk gettext: did not work in many cases.
+   -  chg: sfk if, sfk call: no longer consume chain text
+           without any output.
+   -  add: sfk fromclip -h: example how to append
+           clipboard changes to a logfile in a loop.
+   internal:
+   -  fix: resetLoadCaches no longer reset ConCache
+           as this conflicts with glblSFL.
+   -  add: -errtotext
+   -  add: setvar, getvar
+   -  add: perline, endper
+   -  del: dropped internal testfwrite.
+   -  chg: sfkmatch: renderOutput optim if no data.
+
+   1.7.6
+   Revision 3:
+   -  fix: command chaining: failed to work with
+           sfk ping ... +then webreq +filter ...
+           now every chain i/o type after +then is ignored.
+   -  add: webreq: option -maxwait=n to wait up to
+           n msec for a connection.
+   -  add: ping: option -quiet=2 to not show OK etc.
+   Revision 2:
+   -  fix: sfk alias didn't work.
+   -  fix: sfk ping help: first example didn't work.
+   -  chg: improved help on output chaining error message.
+   -  chg: improved help on input chaining error message.
+   -  chg: udpsend: no longer use gethostbyname on pure ip's.
+   -  chg: global rework of all gethostbyname calls (setaddr).
+   -  add: sfk for windows: option -noesckey to disable
+           stop by escape key.
+   Initial Release:
+   -  add: windows: sfk fixfile, change bad filenames
+           and file times created by embedded devices
+           like PVR video recorders.
+   -  fix: sfk rename: crash on accent chars or umlauts
+           within the search pattern.
+   -  add: ftpserv: LIST now accepts -la, same as -a.
+   -  fix: ftpserv: endless loop on unexpected LIST option.
+   -  add: ftpserv: option -pasvport=n to define PASV port.
+   -  add: windows: option -nofo[llow] now skips symbolic links.
+   -  chg: windows: sfk lindex no longer follows symbolic links
+           by default. use -follow to change this.
+   -  add: sfk num: print number in all kinds of formats.
+   -  fix: sfk snapto: empty files were not added.
+   -  fix: sfk alias -list did not work.
+   -  fix: sfk xe: (x)replace -firsthit truncated file.
+   -  fix: improved cygwin compile.
+   -  add: sfk knxsend: now supports 4 bit messages.
+   -  add: sfk strlen: windows batch example.
+   internal:
+   Revision 3:
+   -  fix: Stringmap::remove: missing key cleanup.
+   -  run: option -upath for url support under windows.
+   Revision 2:
+   -  add: udpsend: option -raw for minimal send.
+   Initial Release:
+   -  add: option -yes+ and -clog command log support
+           with optional SFK_CMD_LOG configuration.
+
