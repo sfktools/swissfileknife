@@ -78,7 +78,7 @@
 #endif
 
 #define SFK_VERSION  "2.0.0" // ver_ and check the _PRE definition
-#define SFK_FIXPACK  ""
+#define SFK_FIXPACK  "2"
 #define SFK_PREVER   ""
 
 #ifdef SFK64
@@ -16277,10 +16277,10 @@ int CommandChaining::addToCurLine(char *pszWords, char *pszAttr, bool bNewLine)
       int nattlen = strlen(pszAttr);
       if (nattlen > naddlen) nattlen = naddlen;
 
-      mystrncpy(szClBuf+icurlen, pszWords, naddlen); // sfk200 [2410131]
+      memcpy(szClBuf+icurlen, pszWords, naddlen); // sfk200 [2410131], sfk2002 fixed [2410242]
       szClBuf[icurlen+naddlen] = '\0';
 
-      mystrncpy(szClAttr+icurlen, pszAttr, nattlen); // sfk200 [2410131]
+      memcpy(szClAttr+icurlen, pszAttr, nattlen); // sfk200 [2410131], sfk2002 fixed [2410242]
       szClAttr[icurlen+nattlen] = '\0';
 
       outdata->setEntry(nidx, szClBuf, szClAttr);
@@ -45192,6 +45192,9 @@ void printMainHelp(bool bhelp, char *penv[])
       "diverse\n"
       "   sfk view       - show text output in a GUI tool,\n"
       "                    for interactive browse and filter\n"
+      #ifdef _WIN32
+      "   sfk iview      - show selected images in a GUI tool\n"
+      #endif
       "   sfk status     - send colored status to the SFKTray\n"
       "                    Windows GUI utility for display\n"
       "   sfk calc       - do a simple instant calculation\n"
